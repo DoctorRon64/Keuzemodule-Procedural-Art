@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1549486305891686779}
   - component: {fileID: -414425924793888167}
   m_Layer: 0
-  m_Name: AirLT
+  m_Name: 0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,8 +28,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 3.1500003, y: 3.1500003, z: 3.1500003}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -97,18 +97,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c03fda1034be4401aeadbc1557673bd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upNeighbourTiles:
-  - {fileID: -3886518830763706337, guid: a4569c366f3849a47baf4fce81c3ed1a, type: 3}
-  rightNeighbourTiles:
-  - {fileID: 8387666484595090061, guid: 8af0032bc5c7ee948b9c5642ea06ab67, type: 3}
+  leftNeighbours:
   - {fileID: -1816651373258693942, guid: 3b7a3e4f9606c764791462a4e9a94d66, type: 3}
-  downNeighbourTiles:
-  - {fileID: -4419563575058730892, guid: f5db013ea0102c04e80861b23d8ac910, type: 3}
-  - {fileID: 7370013655995336274, guid: bf5b7862c1b791f4db11811936828989, type: 3}
-  leftNeigbourTiles:
   - {fileID: -3886518830763706337, guid: a4569c366f3849a47baf4fce81c3ed1a, type: 3}
-  - {fileID: -1816651373258693942, guid: 3b7a3e4f9606c764791462a4e9a94d66, type: 3}
   - {fileID: -6381142221823440885, guid: b3918c8ab6413cc4fa3b86bf3afb8c3b, type: 3}
   - {fileID: -7344893232817842398, guid: f3a2211f3c6c2414eaaf7539de425bd5, type: 3}
-  - {fileID: -7344893232817842398, guid: f3a2211f3c6c2414eaaf7539de425bd5, type: 3}
   - {fileID: 659800711671090610, guid: 9781af15b60574e41b246fbd07c59b33, type: 3}
+  - {fileID: -147921721320917323, guid: c8527c573d01fc3488b5f071cf71263d, type: 3}
+  rightNeighbours:
+  - {fileID: -1816651373258693942, guid: 3b7a3e4f9606c764791462a4e9a94d66, type: 3}
+  - {fileID: 8387666484595090061, guid: 8af0032bc5c7ee948b9c5642ea06ab67, type: 3}
+  - {fileID: 7370013655995336274, guid: bf5b7862c1b791f4db11811936828989, type: 3}
+  - {fileID: 3850263505653825282, guid: 14593ac0f64fda14e84a1fb6c9ec4afb, type: 3}
+  - {fileID: -8227788567436255625, guid: 6a07fd7eb2a499d4fa8f30bc38ebb422, type: 3}
+  upNeighbours:
+  - {fileID: -3886518830763706337, guid: a4569c366f3849a47baf4fce81c3ed1a, type: 3}
+  downNeighbours:
+  - {fileID: -4419563575058730892, guid: f5db013ea0102c04e80861b23d8ac910, type: 3}
+  - {fileID: 7370013655995336274, guid: bf5b7862c1b791f4db11811936828989, type: 3}

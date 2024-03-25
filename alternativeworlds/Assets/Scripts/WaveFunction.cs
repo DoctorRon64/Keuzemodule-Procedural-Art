@@ -7,7 +7,9 @@ using Random = UnityEngine.Random;
 
 public class WaveFunction : MonoBehaviour
 {
-    public int dimensions;
+    public int dimensionsX; // X-axis dimensions
+    public int dimensionsY; // Y-axis dimensions
+    public Vector2 gridPosition; // Position of the grid
     public Tile[] tileObjects;
     public List<Cell> gridComponents;
     public Cell cellObj;
@@ -22,11 +24,12 @@ public class WaveFunction : MonoBehaviour
 
     void InitializeGrid()
     {
-        for (int y = 0; y < dimensions; y++)
+        for (int y = 0; y < dimensionsY; y++)
         {
-            for (int x = 0; x < dimensions; x++)
+            for (int x = 0; x < dimensionsX; x++)
             {
-                Cell newCell = Instantiate(cellObj, new Vector2(x, y), Quaternion.identity);
+                Vector2 cellPosition = new Vector2(x, y) + gridPosition; // Adjust position
+                Cell newCell = Instantiate(cellObj, cellPosition, Quaternion.identity);
                 newCell.CreateCell(false, tileObjects);
                 gridComponents.Add(newCell);
             }
@@ -34,13 +37,36 @@ public class WaveFunction : MonoBehaviour
 
         StartCoroutine(CheckEntropy());
     }
+    
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Regenerate();
+        }
+    }
+    
+    void Regenerate()
+    {
+        StopAllCoroutines(); // Stop any ongoing regeneration
+        iterations = 0; // Reset iterations
+
+        // Clear the existing grid
+        foreach (var cell in gridComponents)
+        {
+            Destroy(cell.gameObject);
+        }
+        gridComponents.Clear();
+
+        InitializeGrid(); // Reinitialize the grid
+    }
 
 
     IEnumerator CheckEntropy()
     {
         List<Cell> tempGrid = new List<Cell>(gridComponents);
 
-        tempGrid.RemoveAll(c => c.collapsed);
+        tempGrid.RemoveAll(_c => _c.collapsed);
 
         tempGrid.Sort((a, b) => { return a.tileOptions.Length - b.tileOptions.Length; });
 
@@ -86,11 +112,11 @@ public class WaveFunction : MonoBehaviour
     {
         List<Cell> newGenerationCell = new List<Cell>(gridComponents);
 
-        for (int y = 0; y < dimensions; y++)
+        for (int y = 0; y < dimensionsY; y++)
         {
-            for (int x = 0; x < dimensions; x++)
+            for (int x = 0; x < dimensionsX; x++)
             {
-                var index = x + y * dimensions;
+                var index = x + y * dimensionsX;
                 if (gridComponents[index].collapsed)
                 {
                     Debug.Log("called");
@@ -107,7 +133,7 @@ public class WaveFunction : MonoBehaviour
                     //update above
                     if (y > 0)
                     {
-                        Cell up = gridComponents[x + (y - 1) * dimensions];
+                        Cell up = gridComponents[x + (y - 1) * dimensionsX];
                         List<Tile> validOptions = new List<Tile>();
 
                         foreach (Tile possibleOptions in up.tileOptions)
@@ -122,9 +148,9 @@ public class WaveFunction : MonoBehaviour
                     }
 
                     //update right
-                    if (x < dimensions - 1)
+                    if (x < dimensionsX - 1)
                     {
-                        Cell right = gridComponents[x + 1 + y * dimensions];
+                        Cell right = gridComponents[x + 1 + y * dimensionsX];
                         List<Tile> validOptions = new List<Tile>();
 
                         foreach (Tile possibleOptions in right.tileOptions)
@@ -139,9 +165,9 @@ public class WaveFunction : MonoBehaviour
                     }
 
                     //look down
-                    if (y < dimensions - 1)
+                    if (y < dimensionsY - 1)
                     {
-                        Cell down = gridComponents[x + (y + 1) * dimensions];
+                        Cell down = gridComponents[x + (y + 1) * dimensionsX];
                         List<Tile> validOptions = new List<Tile>();
 
                         foreach (Tile possibleOptions in down.tileOptions)
@@ -158,7 +184,7 @@ public class WaveFunction : MonoBehaviour
                     //look left
                     if (x > 0)
                     {
-                        Cell left = gridComponents[x - 1 + y * dimensions];
+                        Cell left = gridComponents[x - 1 + y * dimensionsX];
                         List<Tile> validOptions = new List<Tile>();
 
                         foreach (Tile possibleOptions in left.tileOptions)
@@ -187,7 +213,7 @@ public class WaveFunction : MonoBehaviour
         gridComponents = newGenerationCell;
         iterations++;
 
-        if(iterations < dimensions * dimensions)
+        if(iterations < dimensionsX * dimensionsY)
         {
             StartCoroutine(CheckEntropy());
         }
