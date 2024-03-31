@@ -48,19 +48,23 @@ public class WaveFunction : MonoBehaviour
     
     void Regenerate()
     {
-        StopAllCoroutines(); // Stop any ongoing regeneration
-        iterations = 0; // Reset iterations
-
-        // Clear the existing grid
+        StopAllCoroutines();
+        iterations = 0; 
+        
         foreach (var cell in gridComponents)
         {
             Destroy(cell.gameObject);
         }
         gridComponents.Clear();
 
-        InitializeGrid(); // Reinitialize the grid
-    }
+        Tile[] tilesInScene = FindObjectsOfType<Tile>();
+        foreach (var tile in tilesInScene)
+        {
+            Destroy(tile.gameObject);
+        }
 
+        InitializeGrid();
+    }
 
     IEnumerator CheckEntropy()
     {
