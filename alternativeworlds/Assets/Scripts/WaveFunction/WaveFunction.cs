@@ -13,12 +13,14 @@ public class WaveFunction : MonoBehaviour
     public Tile[] tileObjects;
     public List<Cell> gridComponents;
     public Cell cellObj;
-
+    private AudioSource audio;
+    
     int iterations = 0;
 
     void Awake()
     {
         gridComponents = new List<Cell>();
+        audio = GetComponent<AudioSource>();
         InitializeGrid();
     }
 
@@ -42,6 +44,7 @@ public class WaveFunction : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            audio.Play();
             Regenerate();
         }
     }
